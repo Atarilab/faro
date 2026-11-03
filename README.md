@@ -24,13 +24,18 @@ Michal Ciebielski, Shafeef Omar, Aaron Johnson, and Majid Khadiv
 The workhorse behind FARO is a **contact-explicit trajectory optimizer** that
 jointly optimizes motion, contact forces, and timing for multiple robots and
 objects in a single formulation. The examples below show its use in cooperative
-manipulation, throwing, pushing with sliding contacts, and climbing.
+manipulation, throwing and catching, pushing with sliding contacts, climbing,
+and pick and place.
 
 | Multi-robot handover | Cooperative throwing |
 | --- | --- |
 | ![Two robots passing a box up to a raised platform](docs/assets/2_rob_pass_up.gif) | ![Three robots throwing a box between them](docs/assets/3_rob_throw.gif) |
 | **Pushing with sliding contacts** | **Climbing with movable objects** |
 | ![Robot pushing a box](docs/assets/box_push.gif) | ![Robot climbing with two boxes](docs/assets/2_box_climb.gif) |
+| **Tossing between hands** | **Repeated throwing and catching** |
+| ![Robot tossing a box between its hands](docs/assets/juggle.gif) | ![Robot repeatedly throwing and catching a box](docs/assets/triple_throw.gif) |
+| **Pick and place between tables** | **Pick and place with one hand** |
+| ![Robot moving a box from one table to another](docs/assets/pick_place_two_table.gif) | ![Robot picking up a box and placing it on a table with one hand](docs/assets/pick_place_one_hand.gif) |
 
 ## Hierarchical contact-explicit optimization
 
@@ -108,7 +113,7 @@ to preserve when making changes.
 | Multi-robot handover | [Passing a box to a raised platform](examples/multi_robot/two_g1_pass_up.py) |
 | Cooperative throwing | [Two robots](examples/multi_robot/two_g1_throw.py) · [Three robots](examples/multi_robot/three_g1_throw.py) |
 | Climbing with movable objects | [Two-box ascent](evaluations/human_input/climb_2/ctrl_ascent.py) |
-| Dynamic object manipulation | [Tossing between hands](evaluations/human_input/juggle/toss_between_hands.py) |
+| Dynamic object manipulation | [Tossing between hands](evaluations/human_input/juggle/toss_between_hands.py) · [Repeated throwing and catching](evaluations/human_input/triple_catch/triple_throw_catch_regular.py) |
 | Individual optimization stages | [IK](scripts/main_ik.py) · [KSO](scripts/main_kso.py) · [TO](scripts/main_to.py) |
 
 For contact-planning experiments, see the [evaluation guide](evaluations/README.md),
