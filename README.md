@@ -34,20 +34,17 @@ manipulation, throwing, pushing with sliding contacts, and climbing.
 
 ## Hierarchical contact-explicit optimization
 
-A contact plan specifies which robot or object interfaces are in contact at
-each stage. FARO optimizes the corresponding configurations, motion, contact
-forces, and timing. Candidate plans can come from tree search, human input, or
-an external generator such as an LLM.
+Given a scene, a contact-sequence generator proposes which robot or object
+interfaces should be in contact at each stage. Proposals can come from tree
+search, human input, or an external generator such as an LLM. The figure below
+shows how FARO evaluates these proposals and turns feasible plans into whole-body
+motions.
 
-```mermaid
-flowchart LR
-    Plans["Candidate contact sequences"] --> ME["Mode & edge feasibility"]
-    ME --> KSO["Kinematic sequence optimization"]
-    KSO --> TO["Trajectory optimization"]
-    TO --> Motion["Robot & object trajectories"]
-```
+[![FARO framework: a scene and contact-sequence generator feed a hierarchy of mode/transition, kinematic sequence, and trajectory optimization, with a feasibility cache; feasible plans produce whole-body motions, while infeasible proposals feed back to the generator.](docs/assets/faro_diagram.png)](docs/assets/faro_diagram.png)
 
-1. **Mode and edge feasibility:** check individual contact configurations and
+The central hierarchy checks feasibility at three levels:
+
+1. **Mode/transition optimization:** check individual contact configurations and
    transitions using inverse kinematics, contact constraints, and collision
    avoidance.
 2. **Kinematic sequence optimization (KSO):** check the geometric consistency of
@@ -56,9 +53,14 @@ flowchart LR
    contact forces, and phase durations subject to dynamics, friction, collision
    constraints, and joint and actuation limits.
 
+The feasibility cache reuses mode and transition checks across candidate plans,
+avoiding repeated solves. During search, infeasible proposals feed back into
+contact-sequence generation so that alternative plans can be explored. This
+early filtering focuses the more expensive optimization stages on promising
+sequences; successful trajectory optimization produces motions such as the
+climbing example on the right.
+
 The stages share a contact representation and can also be used independently.
-Within search, cached mode and transition checks avoid repeated solves, while
-sequence-level checks guide further exploration.
 
 ## Capabilities
 
