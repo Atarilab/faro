@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "faro"
+version = "0.1.0"
+description = "Feasibility-aware contact planning and robot motion optimization"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "mujoco",
+    "matplotlib",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["faro*", "kinevis*", "scenes*", "assets*"]
+
+[tool.setuptools.package-data]
+"assets.g1_29dof" = [
+    "g1.xml",
+    "assets/*.STL",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+]

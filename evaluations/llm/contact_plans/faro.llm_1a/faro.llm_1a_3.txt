@@ -1,0 +1,999 @@
+Plan 1 (10 modes):
+Description: The robot carries the white box through a short stepping sequence and places it on the floor with its bottom face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 2 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table two with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (2, 8, 1), (2, 8, 1), (2, 8, 1)],
+}
+
+Plan 3 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table two with its right face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (4, 20, 1), (4, 20, 1), (4, 20, 1)],
+}
+
+Plan 4 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table one with its front face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (3, 2, 1), (3, 2, 1), (3, 2, 1)],
+}
+
+Plan 5 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table one with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (5, 14, 1), (5, 14, 1), (5, 14, 1)],
+}
+
+Plan 6 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table one with its top face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (1, 2, 1), (1, 2, 1), (1, 2, 1)],
+}
+
+Plan 7 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table one with its bottom face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (6, 14, 1), (6, 14, 1), (6, 14, 1)],
+}
+
+Plan 8 (10 modes):
+Description: The robot carries the white box through a short stepping sequence and places it on the floor with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (2, 1, 1), (2, 1, 1), (2, 1, 1)],
+}
+
+Plan 9 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table two with its right face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (4, 8, 1), (4, 8, 1), (4, 8, 1)],
+}
+
+Plan 10 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table two with its front face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (3, 20, 1), (3, 20, 1), (3, 20, 1)],
+}
+
+Plan 11 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table two with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (5, 8, 1), (5, 8, 1), (5, 8, 1)],
+}
+
+Plan 12 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table two with its top face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (1, 20, 1), (1, 20, 1), (1, 20, 1)],
+}
+
+Plan 13 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table one with its bottom face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (6, 2, 1), (6, 2, 1), (6, 2, 1)],
+}
+
+Plan 14 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table one with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (2, 14, 1), (2, 14, 1), (2, 14, 1)],
+}
+
+Plan 15 (10 modes):
+Description: The robot carries the white box through a short stepping sequence and places it on the floor with its right face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (4, 1, 1), (4, 1, 1), (4, 1, 1)],
+}
+
+Plan 16 (10 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table one with its front face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (3, 14, 1), (3, 14, 1), (3, 14, 1)],
+}
+
+Plan 17 (10 modes):
+Description: The robot carries the white box through a short stepping sequence and places it on the floor with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (5, 1, 1), (5, 1, 1), (5, 1, 1)],
+}
+
+Plan 18 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table two with its top face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (1, 8, 1), (1, 8, 1), (1, 8, 1)],
+}
+
+Plan 19 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table two with its bottom face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (6, 20, 1), (6, 20, 1), (6, 20, 1)],
+}
+
+Plan 20 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table one with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (2, 2, 1), (2, 2, 1), (2, 2, 1)],
+}
+
+Plan 21 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table two with its right face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (4, 20, 1), (4, 20, 1), (4, 20, 1)],
+}
+
+Plan 22 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table one with its front face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (3, 2, 1), (3, 2, 1), (3, 2, 1)],
+}
+
+Plan 23 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table one with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (5, 14, 1), (5, 14, 1), (5, 14, 1)],
+}
+
+Plan 24 (11 modes):
+Description: The robot carries the white box through a short stepping sequence and places it on the floor with its top face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (1, 1, 1), (1, 1, 1), (1, 1, 1)],
+}
+
+Plan 25 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table two with its bottom face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (6, 8, 1), (6, 8, 1), (6, 8, 1)],
+}
+
+Plan 26 (11 modes):
+Description: The robot carries the white box through a short stepping sequence and places it on the floor with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (2, 1, 1), (2, 1, 1), (2, 1, 1)],
+}
+
+Plan 27 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table two with its right face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), (26, 1), (26, 1), (), ()],
+    'right_ee': [(), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (4, 8, 1), (4, 8, 1), (4, 8, 1)],
+}
+
+Plan 28 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table two with its front face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (3, 20, 1), (3, 20, 1), (3, 20, 1)],
+}
+
+Plan 29 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table one with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (5, 2, 1), (5, 2, 1), (5, 2, 1)],
+}
+
+Plan 30 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table one with its top face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (1, 14, 1), (1, 14, 1), (1, 14, 1)],
+}
+
+Plan 31 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table one with its bottom face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (6, 2, 1), (6, 2, 1), (6, 2, 1)],
+}
+
+Plan 32 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on tall table one with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (2, 14, 1), (2, 14, 1), (2, 14, 1)],
+}
+
+Plan 33 (11 modes):
+Description: The robot carries the white box through a short stepping sequence and places it on the floor with its right face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (4, 1, 1), (4, 1, 1), (4, 1, 1)],
+}
+
+Plan 34 (11 modes):
+Description: The robot carries the white box through a stepping sequence and places it on short table two with its front face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (3, 8, 1), (3, 8, 1), (3, 8, 1)],
+}
+
+Plan 35 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its top face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (1, 1, 1), (1, 1, 1), (1, 1, 1)],
+}
+
+Plan 36 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (2, 1, 1), (2, 1, 1), (2, 1, 1)],
+}
+
+Plan 37 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its front face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (3, 1, 1), (3, 1, 1), (3, 1, 1)],
+}
+
+Plan 38 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its right face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (4, 1, 1), (4, 1, 1), (4, 1, 1)],
+}
+
+Plan 39 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (5, 1, 1), (5, 1, 1), (5, 1, 1)],
+}
+
+Plan 40 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its bottom face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (), (26, 1), (26, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 41 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (2, 1, 1), (2, 1, 1), (2, 1, 1)],
+}
+
+Plan 42 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (5, 1, 1), (5, 1, 1), (5, 1, 1)],
+}
+
+Plan 43 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its top face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (1, 1, 1), (1, 1, 1), (1, 1, 1)],
+}
+
+Plan 44 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (), (27, 1), (27, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (2, 1, 1), (2, 1, 1), (2, 1, 1)],
+}
+
+Plan 45 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its front face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (3, 1, 1), (3, 1, 1), (3, 1, 1)],
+}
+
+Plan 46 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its right face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (4, 1, 1), (4, 1, 1), (4, 1, 1)],
+}
+
+Plan 47 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (5, 1, 1), (5, 1, 1), (5, 1, 1)],
+}
+
+Plan 48 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its bottom face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 49 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its left face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (2, 1, 1), (2, 1, 1), (2, 1, 1)],
+}
+
+Plan 50 (12 modes):
+Description: The robot lifts the white box, changes grasp timing, and sets it back on the floor with its back face down.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (5, 1, 1), (5, 1, 1), (5, 1, 1)],
+}
+
+Plan 51 (12 modes):
+Description: The robot walks toward short table two and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), ()],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (11, 1), (11, 1), (), (9, 1), (9, 1), (9, 1), (9, 1)],
+    'right_ee': [(), (), (), (), (), (), (12, 1), (12, 1), (12, 1), (), (8, 1), (8, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 52 (13 modes):
+Description: The robot walks toward tall table one and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (18, 1), (18, 1), (), (16, 1), (16, 1), (16, 1), (16, 1), (16, 1)],
+    'right_ee': [(), (), (), (), (), (), (14, 1), (14, 1), (14, 1), (), (17, 1), (17, 1), (17, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 53 (13 modes):
+Description: The robot walks toward tall table two and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (21, 1), (21, 1), (), (23, 1), (23, 1), (23, 1), (23, 1), (23, 1)],
+    'right_ee': [(), (), (), (), (), (), (22, 1), (22, 1), (22, 1), (), (20, 1), (20, 1), (20, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 54 (13 modes):
+Description: The robot walks toward short table one and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (4, 1), (4, 1), (), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1)],
+    'right_ee': [(), (), (), (), (), (), (5, 1), (5, 1), (5, 1), (), (2, 1), (2, 1), (2, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 55 (13 modes):
+Description: The robot walks toward short table two and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (11, 1), (11, 1), (), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1)],
+    'right_ee': [(), (), (), (), (), (), (8, 1), (8, 1), (8, 1), (), (10, 1), (10, 1), (10, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 56 (13 modes):
+Description: The robot walks toward tall table one and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (18, 1), (18, 1), (), (16, 1), (16, 1), (16, 1), (16, 1), (16, 1)],
+    'right_ee': [(), (), (), (), (), (), (15, 1), (15, 1), (15, 1), (), (14, 1), (14, 1), (14, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 57 (13 modes):
+Description: The robot walks toward tall table two and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (21, 1), (21, 1), (), (23, 1), (23, 1), (23, 1), (23, 1), (23, 1)],
+    'right_ee': [(), (), (), (), (), (), (22, 1), (22, 1), (22, 1), (), (20, 1), (20, 1), (20, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 58 (13 modes):
+Description: The robot walks toward short table one and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (4, 1), (4, 1), (), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1)],
+    'right_ee': [(), (), (), (), (), (), (2, 1), (2, 1), (2, 1), (), (3, 1), (3, 1), (3, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 59 (13 modes):
+Description: The robot walks toward short table two and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (11, 1), (11, 1), (), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1)],
+    'right_ee': [(), (), (), (), (), (), (12, 1), (12, 1), (12, 1), (), (8, 1), (8, 1), (8, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 60 (13 modes):
+Description: The robot walks toward tall table one and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (18, 1), (18, 1), (), (16, 1), (16, 1), (16, 1), (16, 1), (16, 1)],
+    'right_ee': [(), (), (), (), (), (), (15, 1), (15, 1), (15, 1), (), (14, 1), (14, 1), (14, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 61 (13 modes):
+Description: The robot walks toward tall table two and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (21, 1), (21, 1), (), (23, 1), (23, 1), (23, 1), (23, 1), (23, 1)],
+    'right_ee': [(), (), (), (), (), (), (20, 1), (20, 1), (20, 1), (), (24, 1), (24, 1), (24, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 62 (13 modes):
+Description: The robot walks toward short table one and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (4, 1), (4, 1), (), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1)],
+    'right_ee': [(), (), (), (), (), (), (5, 1), (5, 1), (5, 1), (), (2, 1), (2, 1), (2, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 63 (13 modes):
+Description: The robot walks toward short table two and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (11, 1), (11, 1), (), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1)],
+    'right_ee': [(), (), (), (), (), (), (12, 1), (12, 1), (12, 1), (), (8, 1), (8, 1), (8, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 64 (13 modes):
+Description: The robot walks toward tall table one and alternates hand bracing contacts while the white box remains supported on the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (), (), (18, 1), (18, 1), (), (16, 1), (16, 1), (16, 1), (16, 1), (16, 1)],
+    'right_ee': [(), (), (), (), (), (), (14, 1), (14, 1), (14, 1), (), (17, 1), (17, 1), (17, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 65 (13 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), (), (), (29, 1), (29, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 66 (13 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), ()],
+    'right_ee': [(), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), (), (), (30, 1), (30, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 67 (13 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'right_ee': [(), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), (), (), (27, 1), (27, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 68 (13 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), (), (), (28, 1), (28, 1)],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 69 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'right_ee': [(), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), (), (), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 70 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'right_ee': [(), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), (), (), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 71 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'right_ee': [(), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), (), (), (27, 1), (27, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 72 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), (), (), (28, 1), (28, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 73 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'right_ee': [(), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), (), (), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 74 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'right_ee': [(), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), (), (), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 75 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'right_ee': [(), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), (), (), (27, 1), (27, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 76 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), ()],
+    'right_ee': [(), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), (), (), (28, 1), (28, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 77 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'right_ee': [(), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), (), (), (29, 1), (29, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 78 (14 modes):
+Description: The robot uses the supported white box as a temporary step and changes hand contacts before returning toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'right_ee': [(), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), (), (), (30, 1), (30, 1), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 79 (14 modes):
+Description: The robot braces on short table one and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1)],
+    'left_ee': [(), (), (), (5, 1), (5, 1), (5, 1), (5, 1), (5, 1), (), (), (), (), (), ()],
+    'right_ee': [(), (), (), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 80 (14 modes):
+Description: The robot braces on short table two and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1)],
+    'left_ee': [(), (), (), (12, 1), (12, 1), (12, 1), (12, 1), (12, 1), (), (), (), (), (), ()],
+    'right_ee': [(), (), (), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 81 (14 modes):
+Description: The robot braces on short table one and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1)],
+    'left_ee': [(), (), (), (3, 1), (3, 1), (3, 1), (3, 1), (3, 1), (), (), (), (), (), ()],
+    'right_ee': [(), (), (), (4, 1), (4, 1), (4, 1), (4, 1), (4, 1), (4, 1), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 82 (14 modes):
+Description: The robot braces on short table two and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1)],
+    'left_ee': [(), (), (), (10, 1), (10, 1), (10, 1), (10, 1), (10, 1), (), (), (), (), (), ()],
+    'right_ee': [(), (), (), (11, 1), (11, 1), (11, 1), (11, 1), (11, 1), (11, 1), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 83 (14 modes):
+Description: The robot braces on short table one and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1)],
+    'left_ee': [(), (), (), (5, 1), (5, 1), (5, 1), (5, 1), (5, 1), (), (), (), (), (), ()],
+    'right_ee': [(), (), (), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 84 (14 modes):
+Description: The robot braces on short table two and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1)],
+    'left_ee': [(), (), (), (12, 1), (12, 1), (12, 1), (12, 1), (12, 1), (), (), (), (), (), ()],
+    'right_ee': [(), (), (), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 85 (15 modes):
+Description: The robot braces on short table one and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (3, 1), (3, 1), (3, 1), (3, 1), (3, 1), (), (), (), (), (), (), (5, 1)],
+    'right_ee': [(), (), (), (4, 1), (4, 1), (4, 1), (4, 1), (4, 1), (4, 1), (), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 86 (15 modes):
+Description: The robot braces on short table two and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (10, 1), (10, 1), (10, 1), (10, 1), (10, 1), (), (), (), (), (), (), (12, 1)],
+    'right_ee': [(), (), (), (11, 1), (11, 1), (11, 1), (11, 1), (11, 1), (11, 1), (), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 87 (15 modes):
+Description: The robot braces on short table one and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (2, 1), (2, 1), (2, 1), (2, 1), (2, 1), (), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (5, 1), (5, 1), (5, 1), (5, 1), (5, 1), (), (), (), (), (), (), (3, 1)],
+    'right_ee': [(), (), (), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1), (), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 88 (15 modes):
+Description: The robot braces on short table two and climbs onto its top before stepping back toward the floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (), (8, 1), (8, 1), (8, 1), (8, 1), (8, 1), (), (1, 1), (1, 1)],
+    'left_ee': [(), (), (), (12, 1), (12, 1), (12, 1), (12, 1), (12, 1), (), (), (), (), (), (), (10, 1)],
+    'right_ee': [(), (), (), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (), (), (), (), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1)],
+}
+
+Plan 89 (15 modes):
+Description: The robot first braces on short table one, then grasps and transfers the white box onto that table.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (3, 1), (3, 1), (3, 1), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (6, 2, 1), (6, 2, 1), (6, 2, 1)],
+}
+
+Plan 90 (15 modes):
+Description: The robot first braces on short table two, then grasps and transfers the white box onto that table.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (10, 1), (10, 1), (10, 1), (), (28, 1), (28, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (2, 8, 1), (2, 8, 1), (2, 8, 1)],
+}
+
+Plan 91 (15 modes):
+Description: The robot first braces on tall table one, then grasps and transfers the white box onto that table.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (17, 1), (17, 1), (17, 1), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), (26, 1), (26, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (3, 14, 1), (3, 14, 1), (3, 14, 1)],
+}
+
+Plan 92 (15 modes):
+Description: The robot first braces on tall table two, then grasps and transfers the white box onto that table.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (24, 1), (24, 1), (24, 1), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (4, 20, 1), (4, 20, 1), (4, 20, 1)],
+}
+
+Plan 93 (15 modes):
+Description: The robot first braces on short table one, then grasps and transfers the white box onto that table.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (3, 1), (3, 1), (3, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (5, 2, 1), (5, 2, 1), (5, 2, 1)],
+}
+
+Plan 94 (15 modes):
+Description: The robot first braces on short table two, then grasps and transfers the white box onto that table.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (10, 1), (10, 1), (10, 1), (), (26, 1), (26, 1), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), ()],
+    'right_ee': [(), (), (), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (1, 8, 1), (1, 8, 1), (1, 8, 1)],
+}
+
+Plan 95 (15 modes):
+Description: The robot places the white box on short table one, regrips it, and then places it on tall table one.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), ()],
+    'right_ee': [(), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (6, 2, 1), (6, 2, 1), (6, 2, 1), (), (), (), (1, 14, 1), (1, 14, 1), (1, 14, 1)],
+}
+
+Plan 96 (15 modes):
+Description: The robot sets the white box onto short table two and briefly braces on the table while releasing the object.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (27, 1), (27, 1), (27, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (9, 1), (9, 1), ()],
+    'right_ee': [(), (), (), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (31, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (), (2, 8, 1), (2, 8, 1), (2, 8, 1), (2, 8, 1), (2, 8, 1)],
+}
+
+Plan 97 (15 modes):
+Description: The robot places the white box on tall table one, regrips it, and then places it on floor.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), ()],
+    'right_ee': [(), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (3, 14, 1), (3, 14, 1), (3, 14, 1), (), (), (), (4, 1, 1), (4, 1, 1), (4, 1, 1)],
+}
+
+Plan 98 (15 modes):
+Description: The robot sets the white box onto tall table two and briefly braces on the table while releasing the object.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (28, 1), (), (23, 1), (23, 1), ()],
+    'right_ee': [(), (), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (), (3, 20, 1), (3, 20, 1), (3, 20, 1), (3, 20, 1), (3, 20, 1)],
+}
+
+Plan 99 (15 modes):
+Description: The robot places the white box on floor, regrips it, and then places it on short table two.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (27, 1), (27, 1), (27, 1), (27, 1), (27, 1), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), ()],
+    'right_ee': [(), (), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (30, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (5, 1, 1), (5, 1, 1), (5, 1, 1), (), (), (), (2, 8, 1), (2, 8, 1), (2, 8, 1)],
+}
+
+Plan 100 (15 modes):
+Description: The robot sets the white box onto short table two and briefly braces on the table while releasing the object.
+contact_mode_seq = {
+    'left_sole': [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'right_sole': [(1, 1), (), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)],
+    'left_ee': [(), (), (28, 1), (28, 1), (28, 1), (), (26, 1), (26, 1), (26, 1), (26, 1), (26, 1), (), (9, 1), (9, 1), ()],
+    'right_ee': [(), (), (), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (29, 1), (), ()],
+    'white_box': [(6, 1, 1), (6, 1, 1), (6, 1, 1), (6, 1, 1), (), (), (), (), (), (), (1, 8, 1), (1, 8, 1), (1, 8, 1), (1, 8, 1), (1, 8, 1)],
+}

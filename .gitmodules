@@ -1,0 +1,7 @@
+[submodule "extern/acados"]
+	path = extern/acados
+	url = https://github.com/acados/acados
+[submodule "extern/moto"]
+	path = extern/moto
+	url = https://github.com/HaizhouZ/moto
+	branch = main

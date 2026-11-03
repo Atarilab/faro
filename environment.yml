@@ -1,0 +1,25 @@
+name: faro_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python==3.12.14
+  - cmake==4.4.3
+  - ninja==1.13.2
+  - cxx-compiler==2.0.0
+  - pkg-config==0.29.2
+  - eigen==3.4.0
+  - libblasfeo==0.1.4.3
+  - casadi==3.7.2
+  - magic_enum==0.9.8
+  - fmt==12.1.0
+  - re2==2025.11.05
+  - nanobind==2.14.0
+  - nlohmann_json==3.12.0
+  - openssl==3.6.4
+  - doxygen==1.18.0
+  - catch2==3.16.0
+  - pinocchio==4.0.0
+  - mujoco==3.13.0
+  - numpy==2.5.3
+  - matplotlib==3.11.2

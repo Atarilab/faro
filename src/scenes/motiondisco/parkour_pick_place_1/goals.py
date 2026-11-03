@@ -1,0 +1,56 @@
+from __future__ import annotations
+
+from dataclasses import replace
+
+import numpy as np
+
+from faro.search.goal import GoalTolerances, DiscreteGoal, OutcomeScorer, PositionTarget, TerminalGoal
+from faro.utils.contact_type import CONTACT_TYPE_UNILATERAL
+
+
+def place_box_on_table(scene) -> DiscreteGoal:
+    return DiscreteGoal(
+        discrete={
+            ("obj", "white_box"): (6, scene.face_id('table_tall', 'top'), CONTACT_TYPE_UNILATERAL),
+        },
+    )
+
+
+def box_on_table(scene, resolved_state) -> TerminalGoal:
+    return TerminalGoal(
+        kso="hard", to="hard",
+        robots={"robot": PositionTarget(
+            np.array([0.7, 0.0, 0.788]),
+            to_tolerance=GoalTolerances(position=0.1),
+        )},
+        objects={
+            "white_box": PositionTarget(
+                np.array([1.1, 0.0, 1.265]),
+                to_tolerance=GoalTolerances(position=0.1),
+            ),
+        },
+    )
+
+
+def box_on_table_score(scene, resolved_state) -> OutcomeScorer:
+    # This experiment scores box progress only; the robot target is a constraint.
+    goal = box_on_table(scene, resolved_state)
+    return replace(goal, robots={}).score
+
+
+def none(scene, resolved_state) -> TerminalGoal:
+    return TerminalGoal(kso="off", to="off")
+
+
+DISCRETE_GOALS = {
+    "place_box_on_table": place_box_on_table,
+}
+
+TERMINAL_GOALS = {
+    "box_on_table": box_on_table,
+    "none": none,
+}
+
+OUTCOME_SCORERS = {
+    "box_on_table": box_on_table_score,
+}
