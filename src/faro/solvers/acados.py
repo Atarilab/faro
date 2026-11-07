@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from faro.configs.identifiers import robot_name
+from faro.ocp.configuration import normalize_pose_trajectory, align_pose_trajectory
 from faro.solvers._owned_results import owned_warm_start, validate_owned_warm_start
+from faro.solvers._acados_reset import reset_acados_solver
 
 import hashlib
 import numpy as np
@@ -47,6 +49,10 @@ class AcadosBuildConfig:
     max_nlp_iters: int = 500  # Build-time upper bound for runtime SQP iteration limits.
     tol: float = 1e-4
     free_init_state: bool = False
+    # None selects 1e-4 for quaternion configurations, zero for offset states.
+    levenberg_marquardt: float | None = None
+    # KSO contact-only SQP warm-up; zero disables the second solver.
+    presolve_max_iters: int = 10
 
     def ensure_build_artifacts(self) -> None:
         solver_config_file = Path(self.solver_config_path) / f"{self.name}.json"
@@ -68,11 +74,17 @@ class Acados:
                        dyn = "implicit"):
         if isinstance(build_cfg, AcadosStaticBuildConfig):
             build_cfg = AcadosBuildConfig(**asdict(build_cfg), N_horizon=0, free_init_state=True)
+        if build_cfg.levenberg_marquardt is None:
+            build_cfg = replace(build_cfg, levenberg_marquardt=(
+                1e-4 if ocp.state_coordinates == 'configuration' else 0.0))
+        if not np.isfinite(build_cfg.levenberg_marquardt) or build_cfg.levenberg_marquardt < 0:
+            raise ValueError('levenberg_marquardt must be finite and nonnegative.')
         self.ocp = ocp
         fingerprint = hashlib.sha256()
-        fingerprint.update(repr((dyn, build_cfg.N_horizon, build_cfg.t_total,
+        fingerprint.update(repr((dyn, ocp.state_coordinates, build_cfg.N_horizon, build_cfg.t_total,
                                  build_cfg.free_init_state, build_cfg.hpipm_mode,
-                                 build_cfg.qp_max_iter, build_cfg.max_nlp_iters, build_cfg.tol)).encode())
+                                 build_cfg.qp_max_iter, build_cfg.max_nlp_iters, build_cfg.tol,
+                                 build_cfg.levenberg_marquardt)).encode())
         for collection in (ocp.x_dict, ocp.u_dict, ocp.p_dict):
             fingerprint.update(repr([(key, value.shape) for key, value in collection.items()]).encode())
         for function in (ocp.f_impl, ocp.f_expl, ocp.f_discr, ocp.r_path, ocp.r_terminal):
@@ -137,7 +149,13 @@ class Acados:
             spec.add_bounds(b.var_type, lb=b.lb, ub=b.ub, idx=b.indices)
 
         if not self.build_cfg.free_init_state:
-            spec.set_x0(np.zeros(self.ocp.x.size1()))
+            x0 = np.zeros(self.ocp.x.size1())
+            if self.ocp.state_coordinates == "configuration":
+                offset = 0
+                for state in self.ocp.x_dict.values():
+                    x0[offset + 6] = 1.0
+                    offset += state.numel()
+            spec.set_x0(x0)
 
         return spec
 
@@ -154,7 +172,8 @@ class Acados:
                                hpipm_mode=cfg.hpipm_mode, 
                                qp_max_iter=cfg.qp_max_iter, 
                                max_nlp_iters=cfg.max_nlp_iters,
-                               tol=cfg.tol)
+                               tol=cfg.tol,
+                               levenberg_marquardt=cfg.levenberg_marquardt)
         
         return solver
 
@@ -177,6 +196,29 @@ class Acados:
         cost = self.solver.solver.get_cost()
         return status, stats_dict, cost
 
+    def copy_primal_iterate_from(self, source: Acados) -> None:
+        """Transfer raw x/u between matching layouts, resetting destination duals.
+
+        Unlike importing an external initial guess, this does not project or
+        sign-align quaternions. Constraint multipliers cannot be transferred
+        between formulations with different constraint sets.
+        """
+        if self.N != source.N or self.ocp.state_coordinates != source.ocp.state_coordinates:
+            raise ValueError("Primal transfer requires matching horizons and state coordinates.")
+        for field in ('x_dict', 'u_dict'):
+            target_layout = [(name, sym.shape) for name, sym in getattr(self.ocp, field).items()]
+            source_layout = [(name, sym.shape) for name, sym in getattr(source.ocp, field).items()]
+            if target_layout != source_layout:
+                raise ValueError(f"Primal transfer requires matching {field} layouts.")
+        trajectory = source.solver.get_traj()
+        if not all(np.isfinite(value).all() for value in trajectory.values()):
+            raise ValueError("Cannot transfer a nonfinite primal iterate.")
+        reset_acados_solver(self.solver.solver, horizon=self.N)
+        for k in range(self.N + 1):
+            self.solver.solver.set(k, 'x', trajectory['x'][:, k])
+        for k in range(self.N):
+            self.solver.solver.set(k, 'u', trajectory['u'][:, k])
+
     def compute_detailed_metrics(self) -> Tuple[float, float, float, np.ndarray, List[str]]:
         """Returns (cost, max_violation, sum_violations, sorted_vios, sorted_vio_names)."""
         cost = float(self.solver.solver.get_cost())
@@ -190,6 +232,20 @@ class Acados:
             x_k = self.solver.solver.get(k, "x")
             u_k = self.solver.solver.get(k, "u") if k < self.N else np.zeros(self.ocp.u.size1())
             p_k = self.solver.solver.get(k, "p")
+
+            if self.ocp.state_coordinates == 'configuration' and k < self.N:
+                endpoint = np.asarray(self.ocp.f_discr(x_k, u_k, p_k)).reshape(-1)
+                defect = self.solver.solver.get(k + 1, 'x') - endpoint
+                for j, value in enumerate(defect):
+                    violation = abs(float(value)) if np.isfinite(value) else float('inf')
+                    if violation == 0:
+                        continue
+                    name = f'dynamics[{j}]'
+                    sum_vio += violation
+                    all_vios.append(violation)
+                    all_names.append(f'k={k}:{name}')
+                    all_details.append(dict(k=k, name=name, side='eq', value=float(value),
+                                            lb=0.0, ub=0.0, bound=0.0, violation=violation))
 
             stage_type = "path"
             if k == self.N:
@@ -290,9 +346,29 @@ class Acados:
                     )
 
     def set_initial_guess(self, x0_dict, u0_dict):
-        """Restore owned offset trajectories without changing initial-state bounds."""
+        """Restore owned trajectories without changing initial-state bounds."""
         states, controls = validate_owned_warm_start(
             x0_dict, u0_dict, self.ocp.x_dict, self.ocp.u_dict, self.N + 1, self.N)
+        if self.ocp.state_coordinates == "configuration":
+            states = {name: normalize_pose_trajectory(value, name=f"states.{name}")
+                      for name, value in states.items()}
+            controls = {name: normalize_pose_trajectory(value, name=f"controls.{name}")
+                        for name, value in controls.items()}
+            initial = getattr(getattr(self, 'spec', None), '_x0_val', None)
+            offset = 0
+            for name, value in states.items():
+                if initial is not None:
+                    value[:1] = align_pose_trajectory(value[:1], initial[None, offset:offset + value.shape[1]])
+                for k in range(1, len(value)):
+                    value[k:k + 1] = align_pose_trajectory(value[k:k + 1], value[k - 1:k])
+                offset += value.shape[1]
+            # Each next-configuration control uses its endpoint state's lift.
+            pairs = [(robot_name(rid, 'q_rob'), robot_name(rid, 'q_next_rob'))
+                     for rid in x0_dict['robots']]
+            pairs.extend((name, name) for name in x0_dict['objects'])
+            for state_name, control_name in pairs:
+                if control_name in controls:
+                    controls[control_name] = align_pose_trajectory(controls[control_name], states[state_name][1:])
         x = np.hstack(list(states.values())) if states else np.zeros((self.N + 1, 0))
         u = np.hstack(list(controls.values())) if controls else np.zeros((self.N, 0))
         for k in range(self.N + 1):
@@ -303,24 +379,27 @@ class Acados:
     def get_results(self, robot_cfgs, env_cfgs, resolved,
                     rob_state_name="rob_dx") -> Dict[str, Any]:
         """
-        Retrieves, parses, and retracts manifolds. 
+        Retrieve physical configurations, retracting only offset-coordinate OCPs.
+        Configuration states are copied verbatim, including any norm residual.
         Returns pure data (numpy arrays), agnostic of Acados.
         """
         states = self.solver.get_states_by_block()
         inputs = self.solver.get_inputs_by_block()
 
+        def physical_states(name, reference):
+            if self.ocp.state_coordinates == "configuration":
+                return states[name].T.copy()
+            return self._retract_manifold(states[name], reference).T
+
         robot_xs = {
-            rid: self._retract_manifold(states[robot_name(rid, rob_state_name)], resolved.robots[rid].x).T
+            rid: physical_states(robot_name(rid, rob_state_name), resolved.robots[rid].x)
             for rid in robot_cfgs
         }
         
         obj_xs = {}
         for name, cfg in env_cfgs.items():
             if name in states:
-                obj_xs[name] = self._retract_manifold(
-                    states[name], 
-                    resolved.env_objects[name].x
-                ).T
+                obj_xs[name] = physical_states(name, resolved.env_objects[name].x)
 
         return {
             **owned_warm_start(states, inputs, robot_cfgs, env_cfgs, rob_state_name),

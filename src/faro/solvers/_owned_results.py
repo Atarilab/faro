@@ -12,7 +12,8 @@ def owned_warm_start(states, inputs, robot_cfgs, env_cfgs, state_field):
     wrenches = {}
     for rid, cfg in robot_cfgs.items():
         robot_controls = {}
-        for field, label in (("dq_next_rob", "next_configuration"), ("vdot_rob", "acceleration")):
+        for field, label in (("q_next_rob", "next_configuration"),
+                             ("dq_next_rob", "next_configuration"), ("vdot_rob", "acceleration")):
             key = robot_name(rid, field)
             if key in inputs:
                 robot_controls[label] = inputs[key].T.copy()
@@ -71,7 +72,7 @@ def validate_owned_warm_start(x0_dict, u0_dict, x_symbols, u_symbols,
     for rid, values in robots.items():
         if not isinstance(rid, str) or not rid:
             raise ValueError(f"Invalid robot instance ID {rid!r}")
-        matches = [robot_name(rid, field) for field in ("dq_rob", "rob_dx")
+        matches = [robot_name(rid, field) for field in ("q_rob", "dq_rob", "rob_dx")
                    if robot_name(rid, field) in x_symbols]
         if len(matches) != 1:
             raise ValueError(f"No unambiguous robot state block for {rid!r}")
@@ -91,7 +92,9 @@ def validate_owned_warm_start(x0_dict, u0_dict, x_symbols, u_symbols,
                         raise ValueError(f"Unknown wrench interface {(rid, patch)!r}")
                     u_blocks[key] = array(wrench, control_rows, int(u_symbols[key].numel()), f"controls.robots.{rid}.wrenches.{patch}")
             else:
-                fields = {"next_configuration": "dq_next_rob", "acceleration": "vdot_rob"}
+                fields = {"next_configuration": ("q_next_rob" if robot_name(rid, "q_next_rob") in u_symbols
+                                                  else "dq_next_rob"),
+                          "acceleration": "vdot_rob"}
                 if label not in fields:
                     raise ValueError(f"Unknown robot control field {label!r} for {rid!r}")
                 key = robot_name(rid, fields[label])

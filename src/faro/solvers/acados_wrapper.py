@@ -455,7 +455,8 @@ class AcadosBuilder:
               hpipm_mode: HPIPM_MODE = HPIPM_MODE.balance,
               qp_max_iter: int = 50,
               max_nlp_iters: int = 500,
-              tol: float = 1e-4) -> 'AcadosSolver':
+              tol: float = 1e-4,
+              levenberg_marquardt: float = 0.0) -> 'AcadosSolver':
         self.model = self._build_model()
 
         ocp = AcadosOcp()
@@ -489,6 +490,9 @@ class AcadosBuilder:
         ocp.solver_options.qp_solver = 'PARTIAL_CONDENSING_HPIPM'
         ocp.solver_options.qp_solver_cond_N = self.N
         ocp.solver_options.hessian_approx = 'GAUSS_NEWTON'
+        # Quaternion configurations use redundant coordinates. Damping helps
+        # HPIPM's square-root factorization keep the full-space Hessian definite.
+        ocp.solver_options.levenberg_marquardt = levenberg_marquardt
         ocp.solver_options.qp_solver_iter_max = qp_max_iter
         ocp.solver_options.nlp_solver_max_iter = max_nlp_iters
         ocp.solver_options.nlp_solver_warm_start_first_qp = True
@@ -566,6 +570,34 @@ class AcadosSolver:
         except Exception:
             return None
 
+    def set_final_residual_evaluation(self, enabled: bool) -> None:
+        """Evaluate the returned SQP iterate when a short batch hits its limit.
+
+        This runtime C option is absent from the bundled Python options_set
+        allowlist. It does not change the generated model or require a rebuild.
+        """
+        from ctypes import byref, c_bool
+        if not isinstance(enabled, bool):
+            raise TypeError('Final residual evaluation requires a bool.')
+        value = c_bool(enabled)
+        self.solver.acados_lib.ocp_nlp_solver_opts_set(
+            self.solver.nlp_config, self.solver.nlp_opts,
+            b'eval_residual_at_max_iter', byref(value))
+
+    def set_single_threaded(self) -> None:
+        """Override Acados' compiled thread count, including for cached solvers.
+
+        ACADOS_NUM_THREADS takes precedence over OMP_NUM_THREADS. The bundled
+        SQP_WITH_FEASIBLE_QP implementation shares a stage-size variable across
+        its OpenMP Hessian loops, so KSO uses one native thread for repeatability.
+        This runtime C option is absent from the Python options_set allowlist.
+        """
+        from ctypes import byref, c_int
+        value = c_int(1)
+        self.solver.acados_lib.ocp_nlp_solver_opts_set(
+            self.solver.nlp_config, self.solver.nlp_opts,
+            b'num_threads', byref(value))
+
     def set_initial_state(self, data):
         x0 = self._stack_block("x", data)
         x0_lb = x0.copy()
@@ -573,6 +605,7 @@ class AcadosSolver:
         if self.spec._x0_val is not None:
             self.solver.constraints_set(0, "lbx", x0_lb)
             self.solver.constraints_set(0, "ubx", x0_ub)
+            self.spec._x0_val = x0.copy()
 
     def set_state_constant(self, data: Dict[str, Iterable[float]]) -> None:
         x = self._stack_block('x', data)

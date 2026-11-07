@@ -33,6 +33,8 @@ class KsoTask(TimedTask):
         self.active_interfaces = scene.active_patches
 
         self.solver = None
+        self.presolve_solver = None
+        self.presolve_max_iters = 0
 
         self.models = self.formulation.robot_models
         self.datas = self.formulation.robot_datas
@@ -42,6 +44,11 @@ class KsoTask(TimedTask):
         if isinstance(num_modes, bool) or not isinstance(num_modes, (int, np.integer)) or num_modes < 1:
             raise ValueError("num_modes must be a positive integer.")
         build_cfg = build_cfg or AcadosBuildConfig()
+        if (isinstance(build_cfg.presolve_max_iters, bool)
+                or not isinstance(build_cfg.presolve_max_iters, (int, np.integer))
+                or build_cfg.presolve_max_iters < 0):
+            raise ValueError("presolve_max_iters must be a nonnegative integer.")
+        self.presolve_max_iters = int(build_cfg.presolve_max_iters)
         self.num_modes = int(num_modes)
         self.hard_initial = not build_cfg.free_init_state
         self.num_states = self.num_modes - 1 + int(self.hard_initial) + int(self.has_terminal_goal)
@@ -50,14 +57,27 @@ class KsoTask(TimedTask):
         self.N = self.num_states  # N counts states; horizon counts intervals.
         self.horizon = self.num_states - 1
         build_cfg = replace(build_cfg, N_horizon=self.horizon)
-        self.T_total = 1.0
+        if not np.isfinite(build_cfg.t_total) or build_cfg.t_total <= 0:
+            raise ValueError("t_total must be finite and positive.")
+        self.T_total = build_cfg.t_total
 
         self.collision_mgr.allocate(self.horizon)
         self.collision_mgr.set_fixed_env_qs(self.resolved)
 
-        ocp = self.formulation.build_ocp_description(self.N)
+        ocp = self.formulation.build_ocp_description(self.N, hard_initial=self.hard_initial)
 
         self.solver = Acados(ocp, build_cfg=build_cfg, dyn="implicit")
+        self.solver.solver.set_single_threaded()
+        self.solver.solver.set_final_residual_evaluation(True)
+        self.presolve_solver = None
+        if self.presolve_max_iters:
+            presolve_ocp = self.formulation.build_ocp_description(
+                self.N, hard_initial=self.hard_initial, include_collisions=False)
+            presolve_cfg = replace(build_cfg, name=build_cfg.name + '_presolve',
+                                   max_nlp_iters=max(build_cfg.max_nlp_iters, self.presolve_max_iters))
+            self.presolve_solver = Acados(presolve_ocp, build_cfg=presolve_cfg, dyn="implicit")
+            self.presolve_solver.solver.set_single_threaded()
+            self.presolve_solver.solver.set_final_residual_evaluation(True)
 
     def update_mode_oh_via_tup(self, tuple_dict:
                                Mapping[InterfaceKey, List[Union[TupleEE, TupleObj]]]):
@@ -71,6 +91,7 @@ class KsoTask(TimedTask):
 
     def set_fixed_params(self, weights):
         const_params = _common.ik_constant_params(self.scene, self.resolved, self.horizon)
+        const_params['total_time'] = self.T_total
 
         cost_params = _common.flatten_cost_weights(
             self.scene, weights, self.formulation.params_syms)
@@ -118,15 +139,15 @@ class KsoTask(TimedTask):
     def reset_initial_state(self):
         """Resets x0 constraint (Robot + Objects)."""
         x0_dict = {
-            **{robot_name(rid, "dq_rob"): np.hstack((np.zeros(6), state.q[7:]))
+            **{robot_name(rid, "q_rob"): state.q.copy()
                for rid, state in self.resolved.robots.items()},
-            **{name: np.zeros(self.formulation.obj_n_v) for name in self.env_objs}
+            **{name: self.resolved.env_objects[name].q.copy() for name in self.env_objs}
         }
 
         u0_dict = {
-            **{robot_name(rid, "dq_next_rob"): np.hstack((np.zeros(6), state.q[7:]))
+            **{robot_name(rid, "q_next_rob"): state.q.copy()
                for rid, state in self.resolved.robots.items()},
-            **{name: np.zeros(self.formulation.obj_n_v) for name in self.env_objs}
+            **{name: self.resolved.env_objects[name].q.copy() for name in self.env_objs}
         }
 
         if self.hard_initial:
@@ -139,32 +160,64 @@ class KsoTask(TimedTask):
         self.set_initial_coll_params()
         self.apply_params()
 
+    def _prepare_presolve(self):
+        """Use the latest full-solver guess, parameters, and fixed initial state."""
+        source, target = self.solver, self.presolve_solver
+        target.copy_primal_iterate_from(source)
+        parameters = source.solver.get_parameter_buffer()
+        target.update_params(trajectory_params={
+            name: parameters[:, slice(*source.spec.block_slice('p', name))].T
+            for name in source.ocp.p_dict
+        })
+        if self.hard_initial:
+            target.solver.set_initial_state({
+                name: source.spec._x0_val[slice(*source.spec.block_slice('x', name))].copy()
+                for name in source.ocp.x_dict
+            })
+        target.apply_params()
+
     @timed_solve
     def solve(self, nlp_iters = 50, print_stats = False,
                     sqp_iters_per_collision = 5, res_ineq_tol = None):
-        """Run outer collision updates, each with its own inner SQP limit.
+        """Run a contact-only presolve, then outer collision updates and SQP batches.
 
         ``nlp_iters`` counts outer updates independently of
-        ``sqp_iters_per_collision``.
+        ``sqp_iters_per_collision``. ``res_ineq_tol`` permits early feasibility
+        acceptance only when both dynamics and constraint residuals meet it.
+        The presolve has a separate budget, configured by ``presolve_max_iters``.
         """
-        def latest_finite_res_ineq(stats_dict):
-            for value in reversed(stats_dict.get("res_ineq", [])):
-                try:
-                    value = float(value)
-                except (TypeError, ValueError):
-                    continue
-
-                if np.isfinite(value):
-                    return value
-
-            return None
-
-        def res_ineq_satisfied(stats_dict):
+        def feasibility_satisfied(stats_dict):
             if res_ineq_tol is None:
                 return False
+            # An acceptable contact residual alone does not ensure x_next == u.
+            # Never fall back to an earlier finite value after a failed iterate.
+            for field in ('res_eq', 'res_ineq'):
+                values = stats_dict.get(field, [])
+                try:
+                    value = float(values[-1])
+                except (IndexError, TypeError, ValueError):
+                    return False
+                if not np.isfinite(value) or value >= res_ineq_tol:
+                    return False
+            return True
 
-            res_ineq = latest_finite_res_ineq(stats_dict)
-            return res_ineq is not None and res_ineq < res_ineq_tol
+        if self.presolve_solver is not None:
+            self._prepare_presolve()
+            status, stats, cost = self.presolve_solver.solve(
+                nlp_iters=self.presolve_max_iters, first_iteration=True)
+            if print_stats:
+                print(f"KSO presolve (no collisions, at most {self.presolve_max_iters} SQP iterations).")
+                self.print_iterate_stats(stats, first_iteration=True)
+            # A finite MAXITER iterate is the expected outcome of a short warm-up.
+            if status not in (0, 2) or not np.isfinite(cost):
+                return 1
+            if not all(np.isfinite(value).all()
+                       for value in self.presolve_solver.solver.get_traj().values()):
+                return 1
+            self.solver.copy_primal_iterate_from(self.presolve_solver)
+            results = self.get_results()
+            self.resolve_collisions(results['robot_xs'], results['obj_xs'])
+            self.apply_params()
 
         status, full_stats_dict, cost = self.solver.solve(
             nlp_iters=sqp_iters_per_collision, first_iteration=True)
@@ -172,21 +225,18 @@ class KsoTask(TimedTask):
         if print_stats:
             self.print_iterate_stats(full_stats_dict, first_iteration=True)
 
-        if res_ineq_satisfied(full_stats_dict):
+        if feasibility_satisfied(full_stats_dict):
             if print_stats:
-                print(f"res_ineq < {res_ineq_tol}: accepted constraint satisfaction.")
+                print(f"res_eq and res_ineq < {res_ineq_tol}: accepted constraint satisfaction.")
             return 0
 
         for i in range(nlp_iters):
             results = self.get_results()
-
-            self.resolve_collisions(results["robot_xs"], results["obj_xs"])
+            self.resolve_collisions(results['robot_xs'], results['obj_xs'])
             self.apply_params()
             status, stats_dict, cost = self.solver.solve(
                 nlp_iters=sqp_iters_per_collision, first_iteration=False)
-
             self.merge_stats_into_full(full_stats_dict, stats_dict)
-
             if print_stats:
                 self.print_iterate_stats(full_stats_dict)
 
@@ -195,9 +245,9 @@ class KsoTask(TimedTask):
                     print("Solver status = 0: SUCCESS — optimal solution found.")
                 return 0
 
-            if res_ineq_satisfied(full_stats_dict):
+            if feasibility_satisfied(full_stats_dict):
                 if print_stats:
-                    print(f"res_ineq < {res_ineq_tol}: accepted constraint satisfaction.")
+                    print(f"res_eq and res_ineq < {res_ineq_tol}: accepted constraint satisfaction.")
                 return 0
 
         return 1
@@ -212,7 +262,7 @@ class KsoTask(TimedTask):
 
     def get_results(self,):
         results = self.solver.get_results(self.robot_cfgs, self.env_objs,
-                                          self.resolved, rob_state_name="dq_rob")
+                                          self.resolved, rob_state_name="q_rob")
 
         return results
 

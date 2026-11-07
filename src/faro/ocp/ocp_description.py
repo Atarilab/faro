@@ -71,3 +71,5 @@ class OCPDescription:
 
     constraints: List[ConstraintSpec]
     linear_bounds: List[LinearBound] = field(default_factory=list)
+    # Configuration OCPs store physical XYZ/XYZW/joints in every x/u block.
+    state_coordinates: Literal["offset", "configuration"] = "offset"

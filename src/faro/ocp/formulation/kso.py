@@ -8,7 +8,7 @@ import casadi as cs
 import numpy as np
 from faro.configs.identifiers import robot_name, interface_name, capsule_name, solver_name
 from faro.ocp.robot_blocks import setup_robot_blocks, BlockLayout
-from faro.ocp.kinematics import q_integrate
+from faro.ocp.configuration import configuration_difference
 from faro.ocp.object_features import ObjectFeatures
 from faro.ocp.collision import collision_distances, object_poses, contact_collision_multiplier
 from faro.ocp.ocp_description import OCPDescription, ConstraintBuilder, LinearBound
@@ -23,7 +23,9 @@ def _stack(values):
 
 
 class KsoFormulation:
-    obj_n_q, obj_n_v, obj_n_u = (7, 6, 6)
+    """XYZ/XYZW/joint states, with a full next configuration as each control."""
+
+    obj_n_q, obj_n_v, obj_n_u = (7, 6, 7)
 
     def __init__(
         self,
@@ -52,7 +54,6 @@ class KsoFormulation:
         self.object_features = ObjectFeatures(scene)
         self.collision_idx = collision_index
         self.coll_pair_names = list(collision_index.pair_names)
-        self.q_integrate = q_integrate()
         self.ee_constr_models = {
             rid: {
                 patch: rob_constr_factory.RobotPatchEnvPatchConstraint()
@@ -83,6 +84,7 @@ class KsoFormulation:
                 add(prefix + '_type_oh', NUM_CONTACT_TYPES)
                 add(prefix + '_type_incoming_oh', NUM_CONTACT_TYPES)
         add('n_nodes', 1)
+        add('total_time', 1)
         for name, cfg in {**self.fixed_env_objects, **self.env_objects}.items():
             add(name + '_q0', 7)
             add(name + '_size', len(cfg.half_extents))
@@ -113,22 +115,22 @@ class KsoFormulation:
         return params
 
     def _build_stage_symbols(self):
-        robot_dqs = {
-            rid: cs.SX.sym(robot_name(rid, 'dq_rob'), b.nv)
+        robot_qs = {
+            rid: cs.SX.sym(robot_name(rid, 'q_rob'), b.nq)
             for rid, b in self.robots.items()
         }
-        obj_dqs = {name: cs.SX.sym(name + '_dq', 6) for name in self.env_objects}
-        x_dict = {robot_name(rid, 'dq_rob'): dq for rid, dq in robot_dqs.items()}
-        x_dict.update(obj_dqs)
-        symbols = {'dq_rob': robot_dqs, 'obj_dqs': obj_dqs}
+        obj_qs = {name: cs.SX.sym(name + '_q', 7) for name in self.env_objects}
+        x_dict = {robot_name(rid, 'q_rob'): q for rid, q in robot_qs.items()}
+        x_dict.update(obj_qs)
+        symbols = {'q_rob': robot_qs, 'obj_qs': obj_qs}
         robot_next = {
-            rid: cs.SX.sym(robot_name(rid, 'dq_next_rob'), b.nv)
+            rid: cs.SX.sym(robot_name(rid, 'q_next_rob'), b.nq)
             for rid, b in self.robots.items()
         }
-        obj_next = {name: cs.SX.sym(name + '_dq_next', 6) for name in self.env_objects}
-        u_dict = {robot_name(rid, 'dq_next_rob'): dq for rid, dq in robot_next.items()}
+        obj_next = {name: cs.SX.sym(name + '_q_next', 7) for name in self.env_objects}
+        u_dict = {robot_name(rid, 'q_next_rob'): q for rid, q in robot_next.items()}
         u_dict.update(obj_next)
-        symbols.update(dq_next_rob=robot_next, obj_dqs_next=obj_next)
+        symbols.update(q_next_rob=robot_next, obj_qs_next=obj_next)
         self.x_layout, self.u_layout = (
             BlockLayout.from_symbols(x_dict),
             BlockLayout.from_symbols(u_dict)
@@ -142,25 +144,26 @@ class KsoFormulation:
         )
         return symbols
 
-    def _robot_qs(self, dqs, params):
-        return {
-            rid: block.integrate(params[robot_name(rid, 'q0')], dqs[rid])
-            for rid, block in self.robots.items()
-        }
-
-    def _object_qs(self, dqs, params):
-        return {
-            name: self.q_integrate(params[name + '_q0'], dqs[name])
-            for name in self.env_objects
-        }
-
     def _build_dynamics(self, sym):
-        """Build this formulation's offset-coordinate dynamics."""
+        """Link each next-configuration control to the next shooting state.
+
+        Acados uses one Gauss-Legendre stage and one step (implicit midpoint).
+        With h = total_time / n_nodes, xdot = 2/h * (u - x_mid) gives
+        x_next = u exactly. These are ambient-coordinate chords, not angular
+        velocities: replacing them with an nv-dimensional log error would break
+        both the IRK dimensions and the exact endpoint link. Keep this map linear:
+        a quaternion sign branch at the unknown midpoint admits multiple IRK
+        roots and makes its result depend on the cached Newton initialization.
+        Signs are aligned in warm starts; geometric errors handle q and -q.
+        Unit norms are imposed at shooting nodes. No geometry is evaluated at
+        the midpoint, so even an antipodal pair's zero midpoint is safe.
+        """
         params = self.params_syms
         x, u, p = (sym['x'], sym['u'], sym['p'])
+        derivative = 2 * params['n_nodes'] / params['total_time'] * (u - x)
         xdot = cs.SX.sym('xdot', x.size1())
-        f_impl = cs.Function('f_impl', [x, xdot, u, p], [xdot - 2 * params['n_nodes'] * (u - x)])
-        f_expl = cs.Function('f_expl', [x, u, p], [u - x])
+        f_impl = cs.Function('f_impl', [x, xdot, u, p], [xdot - derivative])
+        f_expl = cs.Function('f_expl', [x, u, p], [derivative])
         f_discr = cs.Function('f_discr', [x, u, p], [u])
         return (f_impl, f_expl, f_discr)
 
@@ -169,44 +172,41 @@ class KsoFormulation:
         params = self.params_syms
         x, u, p = (sym['x'], sym['u'], sym['p'])
         cost, terminal = self.get_regularization_cost(
-            sym['dq_rob'],
-            sym['obj_dqs'],
-            sym['dq_next_rob'],
-            sym['obj_dqs_next'],
+            sym['q_rob'],
+            sym['obj_qs'],
+            sym['q_next_rob'],
+            sym['obj_qs_next'],
             params
         )
-        terminal.update(self.get_task_cost(sym['dq_rob'], sym['obj_dqs'], params))
+        terminal.update(self.get_task_cost(sym['q_rob'], sym['obj_qs'], params))
         residual = cs.Function('r_path', [x, u, p], [_stack(list(cost.values()))])
         residual_terminal = cs.Function('r_terminal', [x, u, p], [_stack(list(terminal.values()))])
         return (residual, residual_terminal)
 
-    def get_regularization_cost(self, dq_rob, obj_dqs, dq_next_rob, obj_dqs_next, params):
+    def get_regularization_cost(self, q_rob, obj_qs, q_next_rob, obj_qs_next, params):
         cost, terminal = ({}, {})
         for rid in self.robots:
-            reference = cs.vertcat(cs.SX.zeros(6), params[robot_name(rid, 'q0')][7:])
+            reference = params[robot_name(rid, 'q0')]
+            error = configuration_difference(reference, q_rob[rid])
+            next_error = configuration_difference(reference, q_next_rob[rid])
             cost[robot_name(rid, 'state')] = cs.sqrt(params[robot_name(
-                rid,
-                'rob_state_cost_W'
-            )]) * (dq_rob[rid] - reference)
+                rid, 'rob_state_cost_W')]) * error
             terminal[robot_name(rid, 'state_e')] = cs.sqrt(params[robot_name(
-                rid,
-                'rob_state_cost_We'
-            )]) * (dq_rob[rid] - reference)
+                rid, 'rob_state_cost_We')]) * error
             cost[robot_name(rid, 'ctrl')] = cs.sqrt(params[robot_name(
-                rid,
-                'rob_ctrl_cost_W'
-            )]) * (dq_next_rob[rid] - reference)
-        for name, dq in obj_dqs.items():
-            reference = cs.SX.zeros(6)
-            cost[name + '_state'] = cs.sqrt(params['object_state_cost_W']) * (dq - reference)
-            terminal[name + '_state_terminal'] = cs.sqrt(params['object_state_cost_We']) * (dq - reference)
-            cost[name + '_ctrl'] = cs.sqrt(params['object_ctrl_cost_W']) * (obj_dqs_next[name] - reference)
+                rid, 'rob_ctrl_cost_W')]) * next_error
+        for name, q in obj_qs.items():
+            reference = params[name + '_q0']
+            error = configuration_difference(reference, q)
+            next_error = configuration_difference(reference, obj_qs_next[name])
+            cost[name + '_state'] = cs.sqrt(params['object_state_cost_W']) * error
+            terminal[name + '_state_terminal'] = cs.sqrt(params['object_state_cost_We']) * error
+            cost[name + '_ctrl'] = cs.sqrt(params['object_ctrl_cost_W']) * next_error
         return (cost, terminal)
 
-    def _goal_residuals(self, dq_rob, obj_dqs, params):
-        robot_qs, object_qs = (self._robot_qs(dq_rob, params), self._object_qs(obj_dqs, params))
+    def _goal_residuals(self, q_rob, obj_qs, params):
         for kind, name, target in self.goal_targets:
-            q = robot_qs[name] if kind == "robot" else object_qs[name]
+            q = q_rob[name] if kind == "robot" else obj_qs[name]
             reference = params[solver_name(kind, name, "goal_reference")]
             if isinstance(target, PositionTarget):
                 error = q[:3] - reference
@@ -216,20 +216,20 @@ class KsoFormulation:
                     error = cs.vertcat(error, q[7:] - reference[7:])
             yield kind, name, target, error
 
-    def get_task_cost(self, dq_rob, obj_dqs, params):
+    def get_task_cost(self, q_rob, obj_qs, params):
         if not self.goal_targets or self.terminal_goal.kso != "soft":
             return {}
         return {
             solver_name(kind, name, "goal_cost"):
                 cs.sqrt(params[solver_name(kind, name, "goal_weight")]) * error
-            for kind, name, target, error in self._goal_residuals(dq_rob, obj_dqs, params)
+            for kind, name, target, error in self._goal_residuals(q_rob, obj_qs, params)
         }
 
-    def get_terminal_constraints(self, dq_rob, obj_dqs, params):
+    def get_terminal_constraints(self, q_rob, obj_qs, params):
         equalities, inequalities = {}, {}
         if not self.goal_targets or self.terminal_goal.kso != "hard":
             return equalities, inequalities
-        for kind, name, target, error in self._goal_residuals(dq_rob, obj_dqs, params):
+        for kind, name, target, error in self._goal_residuals(q_rob, obj_qs, params):
             tolerance = target.tolerance("kso")
             exact = np.flatnonzero(tolerance == 0).tolist()
             bounded = np.flatnonzero(tolerance > 0).tolist()
@@ -256,11 +256,10 @@ class KsoFormulation:
                                      + use_incoming * params[key + '_incoming_oh'])
         return union
 
-    def get_stage_constraints(self, dq_rob, obj_dqs, dq_next_rob, obj_dqs_next, params):
+    def get_stage_constraints(self, q_rob, obj_qs, q_next_rob, obj_qs_next, params):
         """Constrain the union at x and outgoing-mode consistency from x to u."""
         equalities, inequalities, terminal_equalities = ({}, {}, {})
-        robot_qs = self._robot_qs(dq_rob, params)
-        object_qs = self._object_qs(obj_dqs, params)
+        robot_qs, object_qs = q_rob, obj_qs
         features = self.object_features.local_features({
             name: params[name + '_size']
             for name in self.object_features.object_names
@@ -273,8 +272,7 @@ class KsoFormulation:
                     if kind == 'ee'}
         world_features = self.object_features.world_features(
             sizes, {**fixed_qs, **object_qs}, ee_poses)
-        next_qs = self._robot_qs(dq_next_rob, params)
-        next_objects = self._object_qs(obj_dqs_next, params)
+        next_qs, next_objects = q_next_rob, obj_qs_next
         next_ee_poses = {("ee", rid, patch): pose
                          for rid, block in self.robots.items()
                          for (kind, patch), pose in block.kinematics.poses(next_qs[rid]).items()
@@ -338,10 +336,9 @@ class KsoFormulation:
             add('Stage_' + name, constr, ov, ev)
         return (equalities, inequalities, terminal_equalities)
 
-    def get_collision_constraints(self, robot_dqs, obj_dqs, params):
-        robot_qs = self._robot_qs(robot_dqs, params)
+    def get_collision_constraints(self, robot_qs, obj_qs, params):
         states = {name: params[name + '_q0'] for name in self.fixed_env_objects}
-        states.update(self._object_qs(obj_dqs, params))
+        states.update(obj_qs)
         robot_poses = {
             capsule_name(rid, name): pose
             for rid, block in self.robots.items()
@@ -365,31 +362,43 @@ class KsoFormulation:
             for pair, distance in group.items()
         }
 
-    def _build_constraints(self, sym):
+    def _build_constraints(self, sym, *, hard_initial=False, N_nodes=None, include_collisions=True):
         """Apply initial, path, and terminal constraints and optional terminal goals."""
         params = self.params_syms
         x, u, p = (sym['x'], sym['u'], sym['p'])
         builder = ConstraintBuilder(x, u, p)
-        current_dqs = sym['dq_rob']
-        current_objects = sym['obj_dqs']
+        current_qs = sym['q_rob']
+        current_objects = sym['obj_qs']
         eqs, ineqs, teqs = self.get_stage_constraints(
-            current_dqs,
+            current_qs,
             current_objects,
-            sym['dq_next_rob'],
-            sym['obj_dqs_next'],
+            sym['q_next_rob'],
+            sym['obj_qs_next'],
             params
         )
+        # Only constrain x norms. Dynamics transfers the next node's norm to u,
+        # so also constraining u would duplicate equalities across intervals.
+        norms = {
+            name + '_quaternion_norm': cs.dot(q[3:7], q[3:7]) - 1
+            for name, q in sym['x_dict'].items()
+        }
+        for role in ('initial', 'path', 'terminal'):
+            if hard_initial and (role == 'initial' or (role == 'terminal' and N_nodes == 1)):
+                # Full x0 bounds already enforce this; avoid dependent equalities.
+                continue
+            builder.equalities(norms, role)
         roles = ('initial', 'path')
         for role in roles:
             builder.equalities(eqs, role)
             builder.inequalities(ineqs, role)
-        collisions = self.get_collision_constraints(current_dqs, current_objects, params)
+        collisions = (self.get_collision_constraints(current_qs, current_objects, params)
+                      if include_collisions else {})
         for role in roles:
             builder.inequalities(collisions, role)
         builder.equalities(teqs, 'terminal')
         builder.inequalities(ineqs, 'terminal')
         builder.inequalities(collisions, 'terminal')
-        goal_eqs, goal_ineqs = self.get_terminal_constraints(current_dqs, current_objects, params)
+        goal_eqs, goal_ineqs = self.get_terminal_constraints(current_qs, current_objects, params)
         builder.equalities(goal_eqs, 'terminal')
         builder.inequalities(goal_ineqs, 'terminal')
         return builder.specs
@@ -397,11 +406,11 @@ class KsoFormulation:
     def _build_box_constraints(self):
         bounds = []
         for rid, block in self.robots.items():
-            offset = self.x_layout.slices[robot_name(rid, 'dq_rob')].start
+            offset = self.x_layout.slices[robot_name(rid, 'q_rob')].start
             bounds.append(LinearBound(
                 robot_name(rid, 'joint_pos'),
                 'x',
-                list(range(offset + 6, offset + block.nv)),
+                list(range(offset + 7, offset + block.nq)),
                 block.cfg.q_min,
                 block.cfg.q_max
             ))
@@ -416,11 +425,12 @@ class KsoFormulation:
             ))
         return bounds
 
-    def build_ocp_description(self, N_nodes=None):
+    def build_ocp_description(self, N_nodes=None, *, hard_initial=False, include_collisions=True):
         sym = self._build_stage_symbols()
         f_impl, f_expl, f_discr = self._build_dynamics(sym)
         r_path, r_terminal = self._build_costs(sym)
-        constraints = self._build_constraints(sym)
+        constraints = self._build_constraints(sym, hard_initial=hard_initial, N_nodes=N_nodes,
+                                              include_collisions=include_collisions)
         return OCPDescription(
             x=sym['x'],
             u=sym['u'],
@@ -434,5 +444,6 @@ class KsoFormulation:
             r_path=r_path,
             r_terminal=r_terminal,
             constraints=constraints,
-            linear_bounds=self._build_box_constraints()
+            linear_bounds=self._build_box_constraints(),
+            state_coordinates="configuration",
         )

@@ -84,8 +84,9 @@ updates to formulations, adapters, search, and result consumers.
    XYZ and a unit XYZW quaternion, followed by robot joints. MuJoCo conversion
    to WXYZ belongs at the visualization boundary. TO stores robot states as
    `[q, v, CoM, centroidal_momentum]` and object states as `[q, v]`; configuration
-   increments have dimension `nv`, not `nq`. IK/KSO use base-pose offsets and
-   absolute robot joint coordinates internally; warm starts are backend-specific.
+   increments have dimension `nv`, not `nq`. KSO stores physical configurations;
+   IK uses base-pose offsets and absolute robot joint coordinates internally.
+   Warm starts are backend-specific.
    Robot wrenches are world-aligned `[force, moment]` about the EE origin; object
    wrenches are body-local `[moment, force]` about the object origin. Preserve
    these distinctions and use the [wrench routing](../src/faro/ocp/contact_wrenches.py)
@@ -125,6 +126,11 @@ updates to formulations, adapters, search, and result consumers.
    independently in KSO and TO; `OutcomeScorer` ranks results. Regularization
    weights and ranking scores do not impose terminal constraints. See
    [goal definitions](../src/faro/search/goal.py).
+
+KSO automatically runs a short presolve without collision constraints to improve
+initialization, then solves the full problem. Presolve and threading are handled
+by the defaults; no extra configuration is needed. Use `get_results()` for the
+final trajectory.
 
 For TO, always request `get_results(coll=True)` for the final collision solve;
 the default returns the presolve when one exists. `solve()` returns `0` for

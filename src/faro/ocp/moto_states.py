@@ -8,6 +8,8 @@ import numpy as np
 import pinocchio as pin
 import pinocchio.casadi as cpin
 
+from faro.ocp.configuration import normalize_pose_trajectory
+
 
 @dataclass(frozen=True)
 class StateLayout:
@@ -71,16 +73,3 @@ def configuration_states(name, model=None):
 def difference(configuration, reference, value):
     """Tangent displacement from reference to value (Pinocchio argument order)."""
     return configuration.symbolic_difference(value, reference)
-
-
-def normalize_pose_trajectory(values, *, name):
-    """Copy physical states and normalize xyzw base quaternions, preserving sign."""
-    values = np.array(values, dtype=float, copy=True)
-    quaternions = values[:, 3:7]
-    # Scaling first also avoids overflow for finite but very large inputs.
-    scales = np.max(np.abs(quaternions), axis=1)
-    if np.any(scales == 0):
-        raise ValueError(f"{name}: zero quaternion in physical state trajectory")
-    quaternions /= scales[:, None]
-    quaternions /= np.linalg.norm(quaternions, axis=1)[:, None]
-    return values
